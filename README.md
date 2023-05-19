@@ -2,6 +2,20 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Prerequisites
+
+- Node.js and npm installed on your machine
+- An account OpenWeather to get the ApiKey 
+
+## Deployment Steps
+
+1. Clone the repository to your local machine
+2. Navigate to the project directory : cd your-repository
+3. Install the project dependencies: npm install
+4. Run the local server : npm run start
+5. Build the React application: npm run build
+
+
 ## Available Scripts
 
 In the project directory, you can run:
