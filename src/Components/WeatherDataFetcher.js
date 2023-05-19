@@ -1,8 +1,12 @@
+//Component to Get Data with Axios
+//The component will set the data into WeatherDisplay Component
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import WeatherDisplay from './WeatherDisplay';
 
 class WeatherDataFetcher extends Component {
+  //Constructor with props
   constructor(props) {
     super(props);
     this.state = {
@@ -19,14 +23,18 @@ class WeatherDataFetcher extends Component {
     };
   }
 
+
+  //Call the function when the component is mounted
   componentDidMount() {
     this.fetchWeatherData();
   }
 
+  //Function to get Data with the request
   fetchWeatherData = () => {
     const apiKey = 'e47181ddd099153e1ba56bd6f5521709';
     const { city } = this.state;
 
+    //If city is defined => request with axios to get  data
     if (city) {
       axios
         .get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`)
@@ -55,7 +63,7 @@ class WeatherDataFetcher extends Component {
           });
         })
         .catch((error) => {
-          console.log('Une erreur s\'est produite lors de la récupération des données météorologiques:', error);
+          console.log('Request issue', error);
           if (error.response) {
             if (error.response.status === 404) {
               this.setState({ error: error.response.data.message });
@@ -71,15 +79,18 @@ class WeatherDataFetcher extends Component {
     }
   };
 
+  //Handle the user input
   handleCityChange = (event) => {
     this.setState({ city: event.target.value });
   };
 
+  //Call the fetchWeatherData function after Click
   handleButtonClick = () => {
     this.fetchWeatherData();
   };
 
   render() {
+    //Set state
     const { weather, temp, wind, requestcity, country, description, tempMax,tempMin, error } = this.state;
 
     return (

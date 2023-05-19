@@ -1,3 +1,5 @@
+//Component that display Data
+
 import React from 'react';
 import Cloudly from '../Icons/WeatherIconCloudly';
 import Sun from '../Icons/WeatherIconSun';
@@ -11,7 +13,9 @@ const WeatherDisplay = ({ weather, temp, wind, tempMin, tempMax, requestcity, co
     return (
         <div className=''>
             {error ? (
-                <p style={{ color: 'red' }}>{error}</p>
+                <div className="flex justify-center text-red text-8xl">
+                    <p>{error}</p>
+                </div>
             ) : (
                 <div className='flex flex-col justify-center lg:mt-36'>
                     <p className="font-SourceSansPro text-3xl lg:text-8xl text-white text-center">{requestcity}, {country}</p>
