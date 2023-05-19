@@ -8,6 +8,9 @@ class WeatherDataFetcher extends Component {
     this.state = {
       weather: null,
       temp: null,
+      tempMax : null,
+      tempMin: null,
+      wind:null,
       country: null,
       description: null,
       requestcity: null,
@@ -30,17 +33,24 @@ class WeatherDataFetcher extends Component {
         .then((response) => {
           const weather = response.data.weather[0].main;
           const description = response.data.weather[0].description;
+          const wind = Math.floor(response.data.wind.speed * 3,6)
           const tempKelvin = response.data.main.temp;
+          const tempMax = Math.floor(response.data.main.temp_max - 273.15 );
+          const tempMin = Math.floor(response.data.main.temp_min - 273.15);
           const country = response.data.sys.country;
           const requestcity = response.data.name;
           const tempCelsius = Math.floor(tempKelvin - 273.15);
+
 
           this.setState({
             weather,
             description,
             temp: tempCelsius,
+            tempMax,
+            tempMin,
             country,
             requestcity,
+            wind,
             error: ''
           });
         })
@@ -70,7 +80,7 @@ class WeatherDataFetcher extends Component {
   };
 
   render() {
-    const { weather, temp, requestcity, country, description, city, error } = this.state;
+    const { weather, temp, wind, requestcity, country, description, tempMax,tempMin, error } = this.state;
 
     return (
       <div className='mt-12'>
@@ -80,6 +90,9 @@ class WeatherDataFetcher extends Component {
               <WeatherDisplay
                 weather={weather}
                 temp={temp}
+                tempMax = {tempMax}
+                tempMin = {tempMin}
+                wind= {wind}
                 requestcity={requestcity}
                 country={country}
                 description={description}
@@ -93,7 +106,7 @@ class WeatherDataFetcher extends Component {
             <label htmlFor='city' className='mb-2 text-sm font-SourceSansPro text-gray-900 sr-only dark:text-white'>
               Search
             </label>
-            <div className='flex flex-col items-center justify-center pt-10' >
+            <div className='flex flex-col items-center justify-center pt-20' >
               <div className=' relative '>
                 <div className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'>
                   <svg aria-hidden='true' className='w-5 h-5 text-gray-500 dark:text-gray-400' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
@@ -105,18 +118,18 @@ class WeatherDataFetcher extends Component {
                   id='city'
                   onChange={this.handleCityChange}
                   placeholder='Choose a city'
-                  className='block  w-64 md:w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                  className='block  w-64 md:w-96 p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500'
                 />
               </div>
               <button onClick={this.handleButtonClick}
                 className='
                           text-white font-SourceSansPro text-sm
-                          bg-blue-800 hover:bg-blue-800
+                          bg-[#57A0EE] hover:bg-blue-800
                           focus:ring-4 focus:outline-none focus:ring-blue-300 
                           font-medium rounded-lg  
                           px-4 py-2
-                          mt-3
-                          w-64'
+                          mt-3 lg:mt-5
+                          w-64 md:w-96'
               >
                 Search
               </button>

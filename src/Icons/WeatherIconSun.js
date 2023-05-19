@@ -5,8 +5,8 @@ const WeatherIconSun = () => {
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
-            width="150"
-            height="150"
+            width="200"
+            height="200"
             viewBox="0 0 64 64"
         >
             <defs>
